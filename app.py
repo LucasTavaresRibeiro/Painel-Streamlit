@@ -5,7 +5,7 @@ import pandas as pd
 import streamlit as st
 
 st.set_page_config(
-    page_title="Painel RPA • CLT & FN027",
+    page_title="Painel RPA • CLT & FN027 (120h)",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -14,13 +14,13 @@ st.set_page_config(
 DATA_FILE = Path(__file__).parent / "dados_projetos_rpa.json"
 
 DEFAULT_DATA = {
-    "last_updated": "02/11/2026 16:45",
+    "last_updated": "02/11/2026 17:15",
     "taxa_horaria_fn027": 50.0,
     "fn027_tasks": [
-        {"id": 1, "etapa": "1. Levantamento Legado & PDD v1.1", "periodo": "Sem 1 (27-30/10)", "orcado_h": 6.0, "atuado_h": 8.0, "status": "Concluído (Aguard. Pontos)", "depende_acesso": False},
-        {"id": 2, "etapa": "2. Arquitetura RPA (REFramework/Config)", "periodo": "Sem 1-2 (30/10-02/11)", "orcado_h": 8.0, "atuado_h": 6.0, "status": "Em Andamento", "depende_acesso": False},
-        {"id": 3, "etapa": "3. Componentes Transversais (API/Alertas)", "periodo": "Sem 1-2 (30/10-02/11)", "orcado_h": 5.0, "atuado_h": 2.0, "status": "Em Andamento", "depende_acesso": False},
-        {"id": 4, "etapa": "4. Geração NDs - Leitura e Apuração", "periodo": "Sem 2 (02-04/11)", "orcado_h": 10.0, "atuado_h": 2.0, "status": "Em Andamento (02/11)", "depende_acesso": False},
+        {"id": 1, "etapa": "1. Levantamento Legado & PDD v1.1", "periodo": "Sem 1 (27-30/10)", "orcado_h": 6.0, "atuado_h": 6.0, "status": "Concluído (Aguard. Pontos)", "depende_acesso": False},
+        {"id": 2, "etapa": "2. Arquitetura RPA (REFramework, Config e Filas)", "periodo": "Sem 2 (02-03/11)", "orcado_h": 8.0, "atuado_h": 0.0, "status": "A Iniciar (02/11)", "depende_acesso": False},
+        {"id": 3, "etapa": "3. Componentes Transversais (API, Alertas, Erros)", "periodo": "Sem 2 (02-03/11)", "orcado_h": 5.0, "atuado_h": 0.0, "status": "A Iniciar (02/11)", "depende_acesso": False},
+        {"id": 4, "etapa": "4. Geração NDs - Leitura e Apuração", "periodo": "Sem 2 (03-04/11)", "orcado_h": 10.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
         {"id": 5, "etapa": "5. Geração NDs - Montagem Aviso Débito", "periodo": "Sem 2 (04-05/11)", "orcado_h": 10.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
         {"id": 6, "etapa": "6. Leitura NDs Aprovadas e DE-PARA", "periodo": "Sem 2-3 (05-09/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
         {"id": 7, "etapa": "7. Controle Idempotência e Retry", "periodo": "Sem 2-3 (05-09/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
@@ -29,11 +29,15 @@ DEFAULT_DATA = {
         {"id": 10, "etapa": "10. ERP R12 - Módulo AP (NFF)", "periodo": "Sem 3 (11-13/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
         {"id": 11, "etapa": "11. Planilha Controle e Relatório.xlsx", "periodo": "Sem 3-4 (13-16/11)", "orcado_h": 5.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
         {"id": 12, "etapa": "12. Pós-processamento ND (Mover + PDF)", "periodo": "Sem 3-4 (13-16/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
-        {"id": 13, "etapa": "13. Exceções, Testes, Deploy, UAT & Hypercare", "periodo": "Sem 4-5 (16-27/11)", "orcado_h": 20.0, "atuado_h": 0.0, "status": "Marco UAT 24/11", "depende_acesso": True},
+        {"id": 13, "etapa": "13. Tratamento de Exceções (BE/SE)", "periodo": "Sem 4 (16-17/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
+        {"id": 14, "etapa": "14. Testes Integrados", "periodo": "Sem 4 (16-17/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": True},
+        {"id": 15, "etapa": "15. Deploy e Agendamentos Orchestrator", "periodo": "Sem 4-5 (18-23/11)", "orcado_h": 2.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": True},
+        {"id": 16, "etapa": "16. Homologação Assistida (UAT)", "periodo": "Sem 4-5 (18-23/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "Marco UAT 24/11", "depende_acesso": True},
+        {"id": 17, "etapa": "17. Hipercare (Produção Assistida - Aumentado)", "periodo": "Sem 5 (23-27/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Planejado Sem. 5", "depende_acesso": True},
     ],
     "clt_tasks": [
         {"id": 1, "etapa": "Fase 1: Discovery, PDD, TDD & Modeler (BPMN)", "janela_4m": "Mês 1 (Até 02/11)", "meta_fast": "Concluído", "orcado_h": 16.0, "atuado_h": 16.0, "status": "Concluído ✅"},
-        {"id": 2, "etapa": "Fase 2: Esboço Studio REFramework + Config + Disp/CFM", "janela_4m": "Mês 1 (Nov/2026)", "meta_fast": "02/11 a 13/11", "orcado_h": 14.0, "atuado_h": 2.0, "status": "Em Andamento (Sem Acesso)"},
+        {"id": 2, "etapa": "Fase 2: Esboço Studio REFramework + Config + Filas", "janela_4m": "Mês 1 (Nov/2026)", "meta_fast": "02/11 a 13/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "A Iniciar (Sem Acesso)"},
         {"id": 3, "etapa": "Fase 3: Esboço Cascas Modulares ERP (9) & Portal Web (3)", "janela_4m": "Mês 1 (Nov/2026)", "meta_fast": "16/11 a 27/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Planejado (Sem Acesso)"},
         {"id": 4, "etapa": "Fase 4: Seletores Reais ERP Desktop (Etapas 02, 03 e 04)", "janela_4m": "Mês 2 (Dez/2026)", "meta_fast": "Dez/2026 (Pós-Acesso)", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Aguard. Acesso ERP"},
         {"id": 5, "etapa": "Fase 5: Seletores Portal Web + Planilha A-K + E-mail", "janela_4m": "Mês 3 (Jan/2027)", "meta_fast": "Dez/2026 - Jan/2027", "orcado_h": 8.0, "atuado_h": 0.0, "status": "Aguard. Acesso Portal"},
@@ -46,7 +50,7 @@ DEFAULT_DATA = {
         {"projeto": "CLT (Corpo Clínico)", "item": "Liberação de acesso ao Portal Web de Divulgação (HML)", "status": "Pendente", "Impacto": "Seletores Etapa 05"},
     ],
     "diario": [
-        {"data": "02/11/2026", "projeto": "Ambos", "nota": "Início do planejamento visual e contabilização de horas. Modeler do CLT concluído; iniciando esboços no Studio sem acesso (prazo 4 meses / meta 76h). FN027 iniciando Geração de NDs (Excel) enquanto aguarda retorno do PDD."}
+        {"data": "02/11/2026", "projeto": "Ambos", "nota": "Baseline ajustada: FN027 com 120h totais (Hipercare aumentado para 12h) e 6h contabilizadas no PDD até aqui. Próximo passo: iniciar Arquitetura/REFramework/Filas (8h) e Componentes Transversais (5h)."}
     ]
 }
 
@@ -82,10 +86,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("🤖 Central Mobile RPA — CLT (Corpo Clínico) & FN027 (Horista)")
+st.title("🤖 Central Mobile RPA — CLT (Corpo Clínico) & FN027 (120h)")
 st.caption(f"📅 Início: **02 de Novembro de 2026** • Última atualização salva: `{data['last_updated']}`")
 
-# Cálculo de KPIs
 df_fn = pd.DataFrame(data["fn027_tasks"])
 df_clt = pd.DataFrame(data["clt_tasks"])
 
@@ -101,13 +104,13 @@ clt_orcado = float(df_clt["orcado_h"].sum())
 clt_restante = max(0.0, clt_orcado - clt_atuado)
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("🟣 FN027 (Horista)", f"{fn_atuado:.0f}h / {fn_orcado:.0f}h", f"Restam {fn_restante:.0f}h (UAT 24/11)")
+col1.metric("🟣 FN027 (Horista)", f"{fn_atuado:.0f}h / {fn_orcado:.0f}h", f"Restam {fn_restante:.0f}h (Hipercare 12h)")
 col2.metric("💰 FN027 Acumulado", f"R$ {fn_valor_atuado:,.2f}", f"Total: R$ {fn_valor_total:,.2f} (R$ {taxa:.0f}/h)")
 col3.metric("🔵 CLT (Corpo Clínico)", f"{clt_atuado:.0f}h / {clt_orcado:.0f}h", f"Restam {clt_restante:.0f}h (Controle Interno)")
 col4.metric("🗓️ Prazo Oficial CLT", "4 Meses (Nov–Fev)", "Meta Fast-Track: Jan/2027")
 
 tab_visao, tab_horas, tab_pend = st.tabs([
-    "📊 Cronogramas (FN027 & CLT 4 Meses)",
+    "📊 Cronogramas (FN027 120h & CLT 4 Meses)",
     "⏱️ Apontar / Revisar Horas",
     "🚧 Pendências PDD, Acessos & Diário",
 ])
@@ -116,7 +119,7 @@ with tab_visao:
     st.subheader("1. Cronograma CLT — Corpo Clínico (`PRC_0100` • Prazo 4 Meses vs. Fast-Track 76h)")
     st.info(
         "**Status 02/11:** Modeler fechado no UiPath (`BPMN`). Sem acesso aos sistemas-alvo no momento. "
-        "Iniciando hoje os **esboços no Studio** conforme orientação da liderança. "
+        "Iniciando os **esboços no Studio** conforme orientação da liderança. "
         "O prazo oficial é de **4 meses (Nov/2026 a Fev/2027)**, com controle interno em **76h** para entrega antecipada."
     )
     st.dataframe(
@@ -134,17 +137,17 @@ with tab_visao:
     )
 
     st.divider()
-    st.subheader("2. Cronograma FN027 — Intercompany (`Horista PJ` • Semanas 1 a 5)")
+    st.subheader("2. Cronograma FN027 — Intercompany (`Horista PJ` • 120h Totais c/ Hipercare 12h)")
     st.warning(
-        "**Status 02/11:** Aguardando retorno dos pontos levantados no PDD v1.1 e acesso ao ERP de homologação. "
-        "Nesta **Semana 2 (02/11 a 06/11)** o cronograma prevê a **Geração das NDs (Excel) e Idempotência**, que independem do acesso ao ERP."
+        "**Status 02/11:** Contabilizadas **6h de PDD** até o momento. Próximo passo imediato: **Arquitetura RPA, REFramework e Filas (8h)** "
+        "seguido dos **Componentes Transversais (5h)**."
     )
     st.dataframe(
         df_fn[["etapa", "periodo", "atuado_h", "orcado_h", "status"]],
         use_container_width=True,
         hide_index=True,
         column_config={
-            "etapa": "Macroatividade FN027",
+            "etapa": "Macroatividade FN027 (17 itens)",
             "periodo": "Janela no Cronograma",
             "atuado_h": st.column_config.NumberColumn("Já Atuado (h)", format="%.1f h"),
             "orcado_h": st.column_config.NumberColumn("Orçado (h)", format="%.1f h"),
@@ -156,7 +159,7 @@ with tab_horas:
     st.subheader("⏱️ Atualização Rápida de Horas pelo Celular")
     st.caption("Toque em qualquer célula de **Já Atuado (h)**, **Orçado (h)** ou **Status** para editar e clique em **💾 Salvar Alterações**.")
 
-    st.markdown("#### 🟣 FN027 — Intercompany (Horista PJ)")
+    st.markdown("#### 🟣 FN027 — Intercompany (120h Totais • Hipercare 12h)")
     edited_fn = st.data_editor(
         df_fn,
         use_container_width=True,
@@ -173,9 +176,10 @@ with tab_horas:
                 options=[
                     "Concluído ✅",
                     "Concluído (Aguard. Pontos)",
+                    "A Iniciar (02/11)",
                     "Em Andamento",
-                    "Em Andamento (02/11)",
                     "Planejado Sem. 2",
+                    "Planejado Sem. 5",
                     "Bloqueado (Sem Acesso)",
                     "A Iniciar",
                     "Marco UAT 24/11",
@@ -202,6 +206,7 @@ with tab_horas:
                 "Status",
                 options=[
                     "Concluído ✅",
+                    "A Iniciar (Sem Acesso)",
                     "Em Andamento (Sem Acesso)",
                     "Planejado (Sem Acesso)",
                     "Aguard. Acesso ERP",
