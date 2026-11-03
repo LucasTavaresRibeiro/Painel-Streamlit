@@ -268,6 +268,48 @@ with tab_visao:
         "**Status Atual:** Contabilizadas **6h de PDD** até o momento (`R$ 300,00`). Aguardando pontos com João Buso e código do Fortra para avançarmos. "
         "Próximo passo imediato: **Arquitetura RPA, REFramework e Filas (8h)** seguido dos **Componentes Transversais (5h)**."
     )
+
+    st.markdown("#### 🗓️ Cronograma Visual Oficial Dia a Dia — FN027 (Semanas 1 a 5 • Outubro e Novembro/2026)")
+    fn_days = ["26", "27", "28", "29", "30", "2", "3", "4", "5", "6", "9", "10", "11", "12", "13", "16", "17", "18", "19", "20", "23", "24", "25", "26", "27"]
+    fn_visual_rows = [
+        ("1. Assessment / Criação de PDD (6h concluídas)", ["27", "28", "29"], "bar-done"),
+        ("Aprovação PDD (Aguardando retorno dos pontos)", ["30", "2", "3"], "bar-wait"),
+        ("2 & 3. Arquitetura inicial (RPA 8h) + Transversais (5h)", ["30", "2", "3"], "bar-now"),
+        ("4. Geração das NDs - leitura e apuração (10h)", ["2", "3", "4"], "bar-now"),
+        ("5. Geração das NDs - montagem do Aviso de Débito (10h)", ["4", "5"], "bar-now"),
+        ("6 & 7. Leitura das NDs aprovadas, DE-PARA e idempotência (10h)", ["5", "6", "9"], "bar-now"),
+        ("8 & 9. Oracle EBS R12 - Login e AR Contas a Receber (20h)", ["9", "10", "11"], "bar-wait"),
+        ("10. Oracle EBS R12 - AP Contas a Pagar (12h)", ["11", "12", "13"], "bar-wait"),
+        ("11 & 12. Planilha de controle, relatório e pós-processamento (9h)", ["13", "16"], "bar-now"),
+        ("13 & 14. Exceções, logs e testes integrados (12h)", ["16", "17"], "bar-uat"),
+        ("15 & 16. Homologação (UAT) e Deploy (6h)", ["18", "19", "23"], "bar-uat"),
+        ("17. Operação assistida / Hipercare (Aumentado: 12h)", ["23", "24", "25", "26", "27"], "bar-uat"),
+    ]
+    html_fn = '<table class="gantt-table"><thead><tr><th rowspan="2">Atividade / Dia (FN027)</th>'
+    html_fn += '<th colspan="5">Semana 1 (Outubro)</th><th colspan="5" style="background:#1e40af;">📍 Semana 2 (Novembro)</th><th colspan="5">Semana 3 (Novembro)</th><th colspan="5">Semana 4 (Novembro)</th><th colspan="5">Semana 5 (Novembro)</th></tr><tr>'
+    for d in fn_days:
+        if d in ("2", "20"):
+            style_th = ' style="color:#f87171; font-weight:700;"'
+        elif d == "3":
+            style_th = ' style="background:#2563eb; color:#ffffff; font-weight:700;"'
+        else:
+            style_th = ""
+        html_fn += f"<th{style_th}>{d}</th>"
+    html_fn += "</tr></thead><tbody>"
+    for label, active_d, cls in fn_visual_rows:
+        html_fn += f'<tr><td class="act-name">{label}</td>'
+        for d in fn_days:
+            if d in active_d:
+                cell = f'<div class="{cls}"></div>'
+            elif d == "20" and "Hipercare" in label:
+                cell = '<span style="opacity:0.6;">x</span>'
+            else:
+                cell = ""
+            html_fn += f"<td>{cell}</td>"
+        html_fn += "</tr>"
+    html_fn += "</tbody></table>"
+    st.markdown(html_fn, unsafe_allow_html=True)
+
     st.dataframe(
         df_fn[["etapa", "periodo", "atuado_h", "orcado_h", "status"]],
         use_container_width=True,
