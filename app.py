@@ -224,8 +224,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+hoje_dt = datetime.now(TZ_BR)
+hoje_str = hoje_dt.strftime("%d/%m/%Y")
+hoje_dia = hoje_dt.day
+hoje_mes = hoje_dt.month
+
 st.title(titulos.get("painel_titulo", DEFAULT_DATA["titulos"]["painel_titulo"]))
-st.caption(f"📅 Início: **02 de Novembro de 2026** • Última atualização salva: `{data['last_updated']}`")
+st.caption(f"📅 Hoje: **{hoje_str}** • Início: **02 de Novembro de 2026** • Última alteração salva: `{data['last_updated']}`")
 
 df_fn = pd.DataFrame(data["fn027_tasks"])
 df_clt = pd.DataFrame(data["clt_tasks"])
@@ -333,11 +338,29 @@ with tab_visao:
     )
 
     st.markdown(f"#### {titulos.get('clt_gantt_titulo', DEFAULT_DATA['titulos']['clt_gantt_titulo'])}")
+    # Cálculo automático da Semana Atual (S1..S16) e Mês Atual a partir de 02/11 no fuso de Brasília
+    ref_clt_start = datetime(hoje_dt.year if hoje_dt.month >= 10 else hoje_dt.year - 1, 11, 2, tzinfo=TZ_BR)
+    delta_days_clt = (hoje_dt - ref_clt_start).days
+    curr_clt_idx = max(1, min(16, (delta_days_clt // 7) + 1)) if delta_days_clt >= 0 else 1
+    curr_clt_week = f"S{curr_clt_idx}"
+    curr_clt_month = ((curr_clt_idx - 1) // 4) + 1
+
     clt_weeks = [f"S{i}" for i in range(1, 17)]
+    clt_months = [
+        (1, "Mês 1: Novembro/26"),
+        (2, "Mês 2: Dezembro/26"),
+        (3, "Mês 3: Janeiro/27"),
+        (4, "Mês 4: Fevereiro/27"),
+    ]
     html_clt = '<table class="gantt-table"><thead><tr><th rowspan="2">Atividade / Etapa (CLT)</th>'
-    html_clt += '<th colspan="4">Mês 1: Novembro/26</th><th colspan="4">Mês 2: Dezembro/26</th><th colspan="4">Mês 3: Janeiro/27</th><th colspan="4">Mês 4: Fevereiro/27</th></tr><tr>'
+    for m_idx, m_label in clt_months:
+        if m_idx == curr_clt_month:
+            html_clt += f'<th colspan="4" style="background:#1e40af;">📍 {m_label}</th>'
+        else:
+            html_clt += f'<th colspan="4">{m_label}</th>'
+    html_clt += "</tr><tr>"
     for w in clt_weeks:
-        style_th = ' style="background:#2563eb;"' if w == "S1" else ""
+        style_th = ' style="background:#2563eb; color:#ffffff; font-weight:700;"' if w == curr_clt_week else ""
         html_clt += f"<th{style_th}>{w}</th>"
     html_clt += "</tr></thead><tbody>"
     for row in data.get("clt_gantt", DEFAULT_DATA["clt_gantt"]):
@@ -360,27 +383,79 @@ with tab_visao:
     )
 
     st.markdown(f"#### {titulos.get('fn_gantt_titulo', DEFAULT_DATA['titulos']['fn_gantt_titulo'])}")
-    fn_days = ["26", "27", "28", "29", "30", "2", "3", "4", "5", "6", "9", "10", "11", "12", "13", "16", "17", "18", "19", "20", "23", "24", "25", "26", "27"]
+    # Colunas do FN027 com (dia_str, mes_int, semana_idx) para destacar automaticamente o dia atual e evitar conflito entre 26-27/Out e 26-27/Nov
+    fn_cols = [
+        ("26", 10, 1), ("27", 10, 1), ("28", 10, 1), ("29", 10, 1), ("30", 10, 1),
+        ("2", 11, 2),  ("3", 11, 2),  ("4", 11, 2),  ("5", 11, 2),  ("6", 11, 2),
+        ("9", 11, 3),  ("10", 11, 3), ("11", 11, 3), ("12", 11, 3), ("13", 11, 3),
+        ("16", 11, 4), ("17", 11, 4), ("18", 11, 4), ("19", 11, 4), ("20", 11, 4),
+        ("23", 11, 5), ("24", 11, 5), ("25", 11, 5), ("26", 11, 5), ("27", 11, 5),
+    ]
+    # Determina automaticamente qual semana (1..5) está ativa conforme a data de hoje
+    if hoje_mes == 10 and 26 <= hoje_dia <= 31:
+        curr_fn_week = 1
+    elif hoje_mes == 11:
+        if hoje_dia <= 8:
+            curr_fn_week = 2
+        elif hoje_dia <= 15:
+            curr_fn_week = 3
+        elif hoje_dia <= 22:
+            curr_fn_week = 4
+        else:
+            curr_fn_week = 5
+    else:
+        curr_fn_week = 2
+
+    fn_weeks_meta = [
+        (1, "Semana 1 (Outubro)"),
+        (2, "Semana 2 (Novembro)"),
+        (3, "Semana 3 (Novembro)"),
+        (4, "Semana 4 (Novembro)"),
+        (5, "Semana 5 (Novembro)"),
+    ]
     html_fn = '<table class="gantt-table"><thead><tr><th rowspan="2">Atividade / Dia (FN027)</th>'
-    html_fn += '<th colspan="5">Semana 1 (Outubro)</th><th colspan="5" style="background:#1e40af;">📍 Semana 2 (Novembro)</th><th colspan="5">Semana 3 (Novembro)</th><th colspan="5">Semana 4 (Novembro)</th><th colspan="5">Semana 5 (Novembro)</th></tr><tr>'
-    for d in fn_days:
-        if d in ("2", "20"):
-            style_th = ' style="color:#f87171; font-weight:700;"'
-        elif d == "3":
-            style_th = ' style="background:#2563eb; color:#ffffff; font-weight:700;"'
+    for w_idx, w_title in fn_weeks_meta:
+        if w_idx == curr_fn_week:
+            html_fn += f'<th colspan="5" style="background:#1e40af;">📍 {w_title}</th>'
+        else:
+            html_fn += f'<th colspan="5">{w_title}</th>'
+    html_fn += "</tr><tr>"
+    for d_str, m_int, _ in fn_cols:
+        is_today = (int(d_str) == hoje_dia and m_int == hoje_mes)
+        if is_today:
+            style_th = ' style="background:#2563eb; color:#ffffff; font-weight:700;" title="Hoje"'
+        elif (d_str, m_int) in (("2", 11), ("20", 11)):
+            style_th = ' style="color:#f87171; font-weight:700;" title="Feriado"'
         else:
             style_th = ""
-        html_fn += f"<th{style_th}>{d}</th>"
+        html_fn += f"<th{style_th}>{d_str}</th>"
     html_fn += "</tr></thead><tbody>"
     for row in data.get("fn027_gantt", DEFAULT_DATA["fn027_gantt"]):
         label = row.get("atividade", "")
-        active_d = [x.strip() for x in str(row.get("periodos", "")).split(",") if x.strip()]
+        active_tokens = [x.strip() for x in str(row.get("periodos", "")).split(",") if x.strip()]
+        # Desambigua 26 e 27 de Outubro vs. 26 e 27 de Novembro automaticamente
+        has_oct_neighbors = any(t in ("28", "29", "30", "26/10", "27/10") for t in active_tokens)
+        has_nov_end_neighbors = any(t in ("23", "24", "25", "26/11", "27/11") for t in active_tokens)
         cls = COLOR_MAP.get(row.get("cor", ""), "bar-now")
         html_fn += f'<tr><td class="act-name">{label}</td>'
-        for d in fn_days:
-            if d in active_d:
+        for d_str, m_int, _ in fn_cols:
+            explicit_token = f"{d_str}/{m_int}"
+            is_active = False
+            if explicit_token in active_tokens:
+                is_active = True
+            elif d_str in active_tokens:
+                if d_str in ("26", "27"):
+                    if m_int == 10 and (has_oct_neighbors or not has_nov_end_neighbors):
+                        is_active = True
+                    elif m_int == 11 and (has_nov_end_neighbors or not has_oct_neighbors):
+                        is_active = True
+                elif d_str in ("28", "29", "30"):
+                    is_active = (m_int == 10)
+                else:
+                    is_active = (m_int == 11)
+            if is_active:
                 cell = f'<div class="{cls}"></div>'
-            elif d == "20" and "Hipercare" in label:
+            elif d_str == "20" and m_int == 11 and "Hipercare" in label:
                 cell = '<span style="opacity:0.6;">x</span>'
             else:
                 cell = ""
