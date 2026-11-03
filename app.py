@@ -19,9 +19,44 @@ def now_br_str():
 DATA_FILE = Path(__file__).parent / "dados_projetos_rpa.json"
 
 DEFAULT_DATA = {
-    "schema_version": 4,
-    "last_updated": "03/11/2026 18:06",
+    "schema_version": 5,
+    "last_updated": "03/11/2026 18:24",
     "taxa_horaria_fn027": 50.0,
+    "titulos": {
+        "painel_titulo": "🤖 Central Mobile RPA — CLT (Corpo Clínico) & FN027 (120h)",
+        "clt_secao": "1. Cronograma CLT — Corpo Clínico (PRC_0100 • Prazo 4 Meses vs. Fast-Track 76h)",
+        "clt_gantt_titulo": "🗓️ Cronograma Visual — RPA Corpo Clínico (4 Meses / Semanas S1 a S16)",
+        "fn_secao": "2. Cronograma FN027 — Intercompany (Horista PJ • 120h Totais c/ Hipercare 12h)",
+        "fn_gantt_titulo": "🗓️ Cronograma Visual Dia a Dia — FN027 Intercompany (Semanas 1 a 5 • Outubro e Novembro/2026)",
+    },
+    "clt_gantt": [
+        {"atividade": "Assessment, PDD, TDD & Modeler (4 Etapas)", "periodos": "S1", "cor": "Concluído (Verde)"},
+        {"atividade": "Esboço Modeler (INIT/PROCESS/END) + Testes", "periodos": "S1, S2", "cor": "Em Andamento (Azul)"},
+        {"atividade": "Etapa 01 (Disp_CFM): Esboço Studio + Testes CT-03/04/05/08", "periodos": "S1, S2, S3", "cor": "Em Andamento (Azul)"},
+        {"atividade": "Etapa 02 (Perf_ERP_Validacoes): Esboço + Testes CT-06/07/09", "periodos": "S2, S3", "cor": "Em Andamento (Azul)"},
+        {"atividade": "Etapa 03 (Perf_ERP_Cad_Vinculo): Esboço + Testes CT-01/02", "periodos": "S3, S4", "cor": "Em Andamento (Azul)"},
+        {"atividade": "Etapa 04 (Perf_Portal): Esboço + Planilha A-K + Testes CT-10/12", "periodos": "S4", "cor": "Em Andamento (Azul)"},
+        {"atividade": "Seletores Reais ERP Desktop (Etapa 02 - Consulta PJ)", "periodos": "S5, S6", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "Seletores Reais ERP Desktop (Etapa 03 - PF, Vínculo e Modais)", "periodos": "S6, S7, S8", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "Seletores Reais Portal Web (Etapa 04 - Divulgação)", "periodos": "S9, S10", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "Testes Integrados E2E (CT-01 a CT-12) com Massa HML", "periodos": "S10, S11", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "Homologação Assistida (UAT) & Deploy (Meta Fast-Track)", "periodos": "S11, S12, S13", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "Operação Assistida (Hypercare) & Janela Contratual Final", "periodos": "S13, S14, S15, S16", "cor": "UAT & Hypercare (Roxo)"},
+    ],
+    "fn027_gantt": [
+        {"atividade": "1. Assessment / Criação de PDD (6h concluídas)", "periodos": "27, 28, 29", "cor": "Concluído (Verde)"},
+        {"atividade": "Aprovação PDD (Aguardando retorno dos pontos)", "periodos": "30, 2, 3", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "2 & 3. Arquitetura inicial (RPA 8h) + Transversais (5h)", "periodos": "30, 2, 3", "cor": "Em Andamento (Azul)"},
+        {"atividade": "4. Geração das NDs - leitura e apuração (10h)", "periodos": "2, 3, 4", "cor": "Em Andamento (Azul)"},
+        {"atividade": "5. Geração das NDs - montagem do Aviso de Débito (10h)", "periodos": "4, 5", "cor": "Em Andamento (Azul)"},
+        {"atividade": "6 & 7. Leitura das NDs aprovadas, DE-PARA e idempotência (10h)", "periodos": "5, 6, 9", "cor": "Em Andamento (Azul)"},
+        {"atividade": "8 & 9. Oracle EBS R12 - Login e AR Contas a Receber (20h)", "periodos": "9, 10, 11", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "10. Oracle EBS R12 - AP Contas a Pagar (12h)", "periodos": "11, 12, 13", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "11 & 12. Planilha de controle, relatório e pós-processamento (9h)", "periodos": "13, 16", "cor": "Em Andamento (Azul)"},
+        {"atividade": "13 & 14. Exceções, logs e testes integrados (12h)", "periodos": "16, 17", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "15 & 16. Homologação (UAT) e Deploy (6h)", "periodos": "18, 19, 23", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "17. Operação assistida / Hipercare (Aumentado: 12h)", "periodos": "23, 24, 25, 26, 27", "cor": "UAT & Hypercare (Roxo)"},
+    ],
     "fn027_tasks": [
         {"id": 1, "etapa": "1. Levantamento Legado & PDD v1.1", "periodo": "Sem 1 (27-30/10)", "orcado_h": 6.0, "atuado_h": 6.0, "status": "Concluído (Aguard. Pontos)", "depende_acesso": False},
         {"id": 2, "etapa": "2. Arquitetura RPA (REFramework, Config e Filas)", "periodo": "Sem 2 (02-03/11)", "orcado_h": 8.0, "atuado_h": 0.0, "status": "A Iniciar (02/11)", "depende_acesso": False},
@@ -61,15 +96,29 @@ DEFAULT_DATA = {
     ]
 }
 
+COLOR_MAP = {
+    "Concluído (Verde)": "bar-done",
+    "Em Andamento (Azul)": "bar-now",
+    "Aguardando / Dependente (Amarelo)": "bar-wait",
+    "UAT & Hypercare (Roxo)": "bar-uat",
+}
+
 
 def load_data():
     if DATA_FILE.exists():
         try:
             saved = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-            if saved.get("schema_version", 1) < 4:
-                new_data = json.loads(json.dumps(DEFAULT_DATA))
-                save_data(new_data)
-                return new_data
+            if "titulos" not in saved:
+                saved["titulos"] = json.loads(json.dumps(DEFAULT_DATA["titulos"]))
+            else:
+                # Remove "(Estilo FN027)" caso estivesse salvo anteriormente
+                saved["titulos"]["clt_gantt_titulo"] = saved["titulos"].get(
+                    "clt_gantt_titulo", DEFAULT_DATA["titulos"]["clt_gantt_titulo"]
+                ).replace(" (Estilo FN027)", "")
+            if "clt_gantt" not in saved:
+                saved["clt_gantt"] = json.loads(json.dumps(DEFAULT_DATA["clt_gantt"]))
+            if "fn027_gantt" not in saved:
+                saved["fn027_gantt"] = json.loads(json.dumps(DEFAULT_DATA["fn027_gantt"]))
             return saved
         except Exception:
             return json.loads(json.dumps(DEFAULT_DATA))
@@ -77,21 +126,20 @@ def load_data():
 
 
 def save_data(data):
-    data["schema_version"] = 4
+    data["schema_version"] = 5
     data["last_updated"] = now_br_str()
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 data = load_data()
+titulos = data["titulos"]
 
-# CSS com a mesma fonte perfeita, porém corrigindo o padding superior para o topo não cortar o título!
 st.markdown(
     """
     <style>
     html, body, [class*="css"] {
         font-size: 12.5px !important;
     }
-    /* Padding-top ajustado para ficar abaixo da barra superior do Streamlit sem cortar o título */
     .block-container {
         padding-top: 2.8rem !important;
         padding-bottom: 1.5rem !important;
@@ -176,7 +224,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("🤖 Central Mobile RPA — CLT (Corpo Clínico) & FN027 (120h)")
+st.title(titulos.get("painel_titulo", DEFAULT_DATA["titulos"]["painel_titulo"]))
 st.caption(f"📅 Início: **02 de Novembro de 2026** • Última atualização salva: `{data['last_updated']}`")
 
 df_fn = pd.DataFrame(data["fn027_tasks"])
@@ -193,7 +241,6 @@ clt_atuado = float(df_clt["atuado_h"].sum())
 clt_orcado = float(df_clt["orcado_h"].sum())
 clt_restante = max(0.0, clt_orcado - clt_atuado)
 
-# Formatação sem dois símbolos '$' na mesma string para evitar que o Streamlit interprete como LaTeX
 fn_val_atuado_str = f"R$ {fn_valor_atuado:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 fn_val_total_str = f"R$ {fn_valor_total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
@@ -211,7 +258,61 @@ tab_visao, tab_modeler, tab_horas, tab_pend = st.tabs([
 ])
 
 with tab_visao:
-    st.subheader("1. Cronograma CLT — Corpo Clínico (`PRC_0100` • Prazo 4 Meses vs. Fast-Track 76h)")
+    with st.expander("✏️ Editar Títulos e Nomes das Linhas dos Cronogramas Visuais"):
+        st.caption("Altere qualquer título ou nome de atividade abaixo e clique em **💾 Salvar Títulos e Cronogramas Visuais**.")
+        t_painel = st.text_input("Título Principal do Painel", value=titulos.get("painel_titulo", ""))
+        c_t1, c_t2 = st.columns(2)
+        t_clt_sec = c_t1.text_input("Título da Seção CLT", value=titulos.get("clt_secao", ""))
+        t_clt_gantt = c_t2.text_input("Subtítulo do Cronograma Visual CLT", value=titulos.get("clt_gantt_titulo", ""))
+        c_t3, c_t4 = st.columns(2)
+        t_fn_sec = c_t3.text_input("Título da Seção FN027", value=titulos.get("fn_secao", ""))
+        t_fn_gantt = c_t4.text_input("Subtítulo do Cronograma Visual FN027", value=titulos.get("fn_gantt_titulo", ""))
+
+        st.markdown("**Linhas do Cronograma Visual CLT (Semanas S1 a S16):**")
+        df_clt_g = pd.DataFrame(data.get("clt_gantt", DEFAULT_DATA["clt_gantt"]))
+        ed_clt_g = st.data_editor(
+            df_clt_g,
+            num_rows="dynamic",
+            use_container_width=True,
+            hide_index=True,
+            key="ed_clt_gantt",
+            column_config={
+                "atividade": st.column_config.TextColumn("Nome da Atividade / Etapa (Editável)", width="large"),
+                "periodos": st.column_config.TextColumn("Semanas Ativas (ex: S1, S2)", width="medium"),
+                "cor": st.column_config.SelectboxColumn("Cor / Status", options=list(COLOR_MAP.keys()), width="medium"),
+            },
+        )
+
+        st.markdown("**Linhas do Cronograma Visual FN027 (Dias 26..30 Out e 2..27 Nov):**")
+        df_fn_g = pd.DataFrame(data.get("fn027_gantt", DEFAULT_DATA["fn027_gantt"]))
+        ed_fn_g = st.data_editor(
+            df_fn_g,
+            num_rows="dynamic",
+            use_container_width=True,
+            hide_index=True,
+            key="ed_fn_gantt",
+            column_config={
+                "atividade": st.column_config.TextColumn("Nome da Atividade / Dia (Editável)", width="large"),
+                "periodos": st.column_config.TextColumn("Dias Ativos (ex: 2, 3, 4)", width="medium"),
+                "cor": st.column_config.SelectboxColumn("Cor / Status", options=list(COLOR_MAP.keys()), width="medium"),
+            },
+        )
+
+        if st.button("💾 Salvar Títulos e Cronogramas Visuais", type="primary", use_container_width=True):
+            data["titulos"] = {
+                "painel_titulo": t_painel,
+                "clt_secao": t_clt_sec,
+                "clt_gantt_titulo": t_clt_gantt,
+                "fn_secao": t_fn_sec,
+                "fn_gantt_titulo": t_fn_gantt,
+            }
+            data["clt_gantt"] = [r for r in ed_clt_g.to_dict(orient="records") if str(r.get("atividade", "")).strip()]
+            data["fn027_gantt"] = [r for r in ed_fn_g.to_dict(orient="records") if str(r.get("atividade", "")).strip()]
+            save_data(data)
+            st.success("Títulos e cronogramas visuais atualizados!")
+            st.rerun()
+
+    st.subheader(titulos.get("clt_secao", DEFAULT_DATA["titulos"]["clt_secao"]))
     st.info(
         "**Status Atual:** Modeler fechado no UiPath (`BPMN` em 4 Etapas). Acesso ao sistema Desktop (Win32) liberado ✅. "
         "Iniciando os **esboços de desenvolvimento e testes no Modeler/Studio**. "
@@ -231,29 +332,18 @@ with tab_visao:
         },
     )
 
-    st.markdown("#### 🗓️ Cronograma Visual (Estilo FN027) — RPA Corpo Clínico (4 Meses / Semanas S1 a S16)")
+    st.markdown(f"#### {titulos.get('clt_gantt_titulo', DEFAULT_DATA['titulos']['clt_gantt_titulo'])}")
     clt_weeks = [f"S{i}" for i in range(1, 17)]
-    clt_visual_rows = [
-        ("Assessment, PDD, TDD & Modeler (4 Etapas)", ["S1"], "bar-done"),
-        ("Esboço Modeler (INIT/PROCESS/END) + Testes", ["S1", "S2"], "bar-now"),
-        ("Etapa 01 (Disp_CFM): Esboço Studio + Testes CT-03/04/05/08", ["S1", "S2", "S3"], "bar-now"),
-        ("Etapa 02 (Perf_ERP_Validacoes): Esboço + Testes CT-06/07/09", ["S2", "S3"], "bar-now"),
-        ("Etapa 03 (Perf_ERP_Cad_Vinculo): Esboço + Testes CT-01/02", ["S3", "S4"], "bar-now"),
-        ("Etapa 04 (Perf_Portal): Esboço + Planilha A-K + Testes CT-10/12", ["S4"], "bar-now"),
-        ("Seletores Reais ERP Desktop (Etapa 02 - Consulta PJ)", ["S5", "S6"], "bar-wait"),
-        ("Seletores Reais ERP Desktop (Etapa 03 - PF, Vínculo e Modais)", ["S6", "S7", "S8"], "bar-wait"),
-        ("Seletores Reais Portal Web (Etapa 04 - Divulgação)", ["S9", "S10"], "bar-wait"),
-        ("Testes Integrados E2E (CT-01 a CT-12) com Massa HML", ["S10", "S11"], "bar-uat"),
-        ("Homologação Assistida (UAT) & Deploy (Meta Fast-Track)", ["S11", "S12", "S13"], "bar-uat"),
-        ("Operação Assistida (Hypercare) & Janela Contratual Final", ["S13", "S14", "S15", "S16"], "bar-uat"),
-    ]
     html_clt = '<table class="gantt-table"><thead><tr><th rowspan="2">Atividade / Etapa (CLT)</th>'
     html_clt += '<th colspan="4">Mês 1: Novembro/26</th><th colspan="4">Mês 2: Dezembro/26</th><th colspan="4">Mês 3: Janeiro/27</th><th colspan="4">Mês 4: Fevereiro/27</th></tr><tr>'
     for w in clt_weeks:
         style_th = ' style="background:#2563eb;"' if w == "S1" else ""
         html_clt += f"<th{style_th}>{w}</th>"
     html_clt += "</tr></thead><tbody>"
-    for label, active_w, cls in clt_visual_rows:
+    for row in data.get("clt_gantt", DEFAULT_DATA["clt_gantt"]):
+        label = row.get("atividade", "")
+        active_w = [x.strip() for x in str(row.get("periodos", "")).split(",") if x.strip()]
+        cls = COLOR_MAP.get(row.get("cor", ""), "bar-now")
         html_clt += f'<tr><td class="act-name">{label}</td>'
         for w in clt_weeks:
             cell = f'<div class="{cls}"></div>' if w in active_w else ""
@@ -263,28 +353,14 @@ with tab_visao:
     st.markdown(html_clt, unsafe_allow_html=True)
 
     st.divider()
-    st.subheader("2. Cronograma FN027 — Intercompany (`Horista PJ` • 120h Totais c/ Hipercare 12h)")
+    st.subheader(titulos.get("fn_secao", DEFAULT_DATA["titulos"]["fn_secao"]))
     st.warning(
         "**Status Atual:** Contabilizadas **6h de PDD** até o momento (`R$ 300,00`). Aguardando pontos com João Buso e código do Fortra para avançarmos. "
         "Próximo passo imediato: **Arquitetura RPA, REFramework e Filas (8h)** seguido dos **Componentes Transversais (5h)**."
     )
 
-    st.markdown("#### 🗓️ Cronograma Visual Oficial Dia a Dia — FN027 (Semanas 1 a 5 • Outubro e Novembro/2026)")
+    st.markdown(f"#### {titulos.get('fn_gantt_titulo', DEFAULT_DATA['titulos']['fn_gantt_titulo'])}")
     fn_days = ["26", "27", "28", "29", "30", "2", "3", "4", "5", "6", "9", "10", "11", "12", "13", "16", "17", "18", "19", "20", "23", "24", "25", "26", "27"]
-    fn_visual_rows = [
-        ("1. Assessment / Criação de PDD (6h concluídas)", ["27", "28", "29"], "bar-done"),
-        ("Aprovação PDD (Aguardando retorno dos pontos)", ["30", "2", "3"], "bar-wait"),
-        ("2 & 3. Arquitetura inicial (RPA 8h) + Transversais (5h)", ["30", "2", "3"], "bar-now"),
-        ("4. Geração das NDs - leitura e apuração (10h)", ["2", "3", "4"], "bar-now"),
-        ("5. Geração das NDs - montagem do Aviso de Débito (10h)", ["4", "5"], "bar-now"),
-        ("6 & 7. Leitura das NDs aprovadas, DE-PARA e idempotência (10h)", ["5", "6", "9"], "bar-now"),
-        ("8 & 9. Oracle EBS R12 - Login e AR Contas a Receber (20h)", ["9", "10", "11"], "bar-wait"),
-        ("10. Oracle EBS R12 - AP Contas a Pagar (12h)", ["11", "12", "13"], "bar-wait"),
-        ("11 & 12. Planilha de controle, relatório e pós-processamento (9h)", ["13", "16"], "bar-now"),
-        ("13 & 14. Exceções, logs e testes integrados (12h)", ["16", "17"], "bar-uat"),
-        ("15 & 16. Homologação (UAT) e Deploy (6h)", ["18", "19", "23"], "bar-uat"),
-        ("17. Operação assistida / Hipercare (Aumentado: 12h)", ["23", "24", "25", "26", "27"], "bar-uat"),
-    ]
     html_fn = '<table class="gantt-table"><thead><tr><th rowspan="2">Atividade / Dia (FN027)</th>'
     html_fn += '<th colspan="5">Semana 1 (Outubro)</th><th colspan="5" style="background:#1e40af;">📍 Semana 2 (Novembro)</th><th colspan="5">Semana 3 (Novembro)</th><th colspan="5">Semana 4 (Novembro)</th><th colspan="5">Semana 5 (Novembro)</th></tr><tr>'
     for d in fn_days:
@@ -296,7 +372,10 @@ with tab_visao:
             style_th = ""
         html_fn += f"<th{style_th}>{d}</th>"
     html_fn += "</tr></thead><tbody>"
-    for label, active_d, cls in fn_visual_rows:
+    for row in data.get("fn027_gantt", DEFAULT_DATA["fn027_gantt"]):
+        label = row.get("atividade", "")
+        active_d = [x.strip() for x in str(row.get("periodos", "")).split(",") if x.strip()]
+        cls = COLOR_MAP.get(row.get("cor", ""), "bar-now")
         html_fn += f'<tr><td class="act-name">{label}</td>'
         for d in fn_days:
             if d in active_d:
@@ -365,10 +444,10 @@ with tab_modeler:
         )
 
 with tab_horas:
-    st.subheader("⏱️ Editar, Corrigir ou Zerar Horas Lançadas")
+    st.subheader("⏱️ Editar Nomes das Etapas, Corrigir ou Zerar Horas Lançadas")
     st.caption(
-        "Você pode **digitar qualquer valor** diretamente em **Já Atuado (h)** / **Orçado (h)**, ou marcar a caixinha **🔄 Zerar Horas?** "
-        "em uma linha lançada por engano e clicar em **💾 Salvar Alterações de Horas**."
+        "Você pode **editar o nome de qualquer Macroatividade / Fase**, **digitar qualquer valor** em **Já Atuado (h)** / **Orçado (h)**, "
+        "ou marcar **🔄 Zerar Horas?** e clicar em **💾 Salvar Alterações de Horas**."
     )
 
     df_fn_edit = df_fn.copy()
@@ -382,7 +461,7 @@ with tab_horas:
         key="editor_fn",
         column_config={
             "id": None,
-            "etapa": st.column_config.TextColumn("Macroatividade"),
+            "etapa": st.column_config.TextColumn("Macroatividade (Editável)"),
             "periodo": st.column_config.TextColumn("Período"),
             "atuado_h": st.column_config.NumberColumn("Já Atuado (h)", min_value=0.0, step=0.5, format="%.1f"),
             "orcado_h": st.column_config.NumberColumn("Orçado (h)", min_value=0.0, step=0.5, format="%.1f"),
@@ -416,7 +495,7 @@ with tab_horas:
         key="editor_clt",
         column_config={
             "id": None,
-            "etapa": st.column_config.TextColumn("Fase / Etapa"),
+            "etapa": st.column_config.TextColumn("Fase / Etapa (Editável)"),
             "janela_4m": st.column_config.TextColumn("Prazo 4 Meses"),
             "meta_fast": st.column_config.TextColumn("Meta Fast-Track"),
             "atuado_h": st.column_config.NumberColumn("Já Atuado (h)", min_value=0.0, step=0.5, format="%.1f"),
@@ -461,7 +540,7 @@ with tab_horas:
         data["fn027_tasks"] = fn_records
         data["clt_tasks"] = clt_records
         save_data(data)
-        st.success("Horas salvas e recalculadas com sucesso!")
+        st.success("Horas e nomes salvos com sucesso!")
         st.rerun()
 
     if c_reset.button("🔄 Restaurar Horas Base (6h FN027 / 10h CLT)", use_container_width=True):
@@ -512,7 +591,6 @@ with tab_pend:
     st.divider()
     st.subheader("📝 Diário de Bordo & Atualizações Rápidas (Adicionar, Editar ou Apagar)")
 
-    # Formulário com clear_on_submit=True para não duplicar notas ao recarregar
     with st.form("novo_log", clear_on_submit=True):
         c_proj, c_nota = st.columns([1, 3])
         proj_sel = c_proj.selectbox("Projeto", ["FN027 (Horista)", "CLT (Corpo Clínico)", "Ambos"])
