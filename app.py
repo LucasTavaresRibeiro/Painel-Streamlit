@@ -19,81 +19,148 @@ def now_br_str():
 DATA_FILE = Path(__file__).parent / "dados_projetos_rpa.json"
 
 DEFAULT_DATA = {
-    "schema_version": 5,
-    "last_updated": "03/11/2026 18:24",
+    "schema_version": 6,
+    "last_updated": "09/11/2026 17:20",
     "taxa_horaria_fn027": 50.0,
     "titulos": {
-        "painel_titulo": "🤖 Central Mobile RPA — CLT (Corpo Clínico) & FN027 (120h)",
-        "clt_secao": "1. Cronograma CLT — Corpo Clínico (PRC_0100 • Prazo 4 Meses vs. Fast-Track 76h)",
-        "clt_gantt_titulo": "🗓️ Cronograma Visual — RPA Corpo Clínico (4 Meses / Semanas S1 a S16)",
+        "painel_titulo": "🤖 Central Mobile RPA — CLT (Meta Urgente 27/11) & FN027 (120h)",
+        "clt_secao": "1. Cronograma CLT — Corpo Clínico (PRC_0100 • Sprint Acelerada: Go-Live 27/11/2026 • 76h)",
+        "clt_gantt_titulo": "🗓️ Cronograma Visual Acelerado — RPA Corpo Clínico (Entrega Final: 27/11/2026)",
         "fn_secao": "2. Cronograma FN027 — Intercompany (Horista PJ • 120h Totais c/ Hipercare 12h)",
         "fn_gantt_titulo": "🗓️ Cronograma Visual Dia a Dia — FN027 Intercompany (Semanas 1 a 5 • Outubro e Novembro/2026)",
     },
     "clt_gantt": [
-        {"atividade": "Assessment, PDD, TDD & Modeler (4 Etapas)", "periodos": "S1", "cor": "Concluído (Verde)"},
-        {"atividade": "Esboço Modeler (INIT/PROCESS/END) + Testes", "periodos": "S1, S2", "cor": "Em Andamento (Azul)"},
-        {"atividade": "Etapa 01 (Disp_CFM): Esboço Studio + Testes CT-03/04/05/08", "periodos": "S1, S2, S3", "cor": "Em Andamento (Azul)"},
-        {"atividade": "Etapa 02 (Perf_ERP_Validacoes): Esboço + Testes CT-06/07/09", "periodos": "S2, S3", "cor": "Em Andamento (Azul)"},
-        {"atividade": "Etapa 03 (Perf_ERP_Cad_Vinculo): Esboço + Testes CT-01/02", "periodos": "S3, S4", "cor": "Em Andamento (Azul)"},
-        {"atividade": "Etapa 04 (Perf_Portal): Esboço + Planilha A-K + Testes CT-10/12", "periodos": "S4", "cor": "Em Andamento (Azul)"},
-        {"atividade": "Seletores Reais ERP Desktop (Etapa 02 - Consulta PJ)", "periodos": "S5, S6", "cor": "Aguardando / Dependente (Amarelo)"},
-        {"atividade": "Seletores Reais ERP Desktop (Etapa 03 - PF, Vínculo e Modais)", "periodos": "S6, S7, S8", "cor": "Aguardando / Dependente (Amarelo)"},
-        {"atividade": "Seletores Reais Portal Web (Etapa 04 - Divulgação)", "periodos": "S9, S10", "cor": "Aguardando / Dependente (Amarelo)"},
-        {"atividade": "Testes Integrados E2E (CT-01 a CT-12) com Massa HML", "periodos": "S10, S11", "cor": "UAT & Hypercare (Roxo)"},
-        {"atividade": "Homologação Assistida (UAT) & Deploy (Meta Fast-Track)", "periodos": "S11, S12, S13", "cor": "UAT & Hypercare (Roxo)"},
-        {"atividade": "Operação Assistida (Hypercare) & Janela Contratual Final", "periodos": "S13, S14, S15, S16", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "1. Discovery, Modeler BPMN (4 Etapas) & Testes (10h)", "periodos": "S1", "cor": "Concluído (Verde)"},
+        {"atividade": "2. Etapa 01 (Disp_CFM): REFramework + Leitura CFM + CT-03/04/05/08", "periodos": "S2", "cor": "Em Andamento (Azul)"},
+        {"atividade": "3. Etapa 02 (Perf_ERP_Validacoes): Consulta PJ Desktop Win32 + CT-06/07/09", "periodos": "S2, S3", "cor": "Em Andamento (Azul)"},
+        {"atividade": "4. Etapa 03 (Perf_ERP_Cad_Vinculo): Cadastro PF, Vínculos, Modais + CT-01/02", "periodos": "S3, S4", "cor": "Em Andamento (Azul)"},
+        {"atividade": "5. Etapa 04 (Perf_Portal SAUDI): Divulgação Web + Planilha A-K + CT-10/12", "periodos": "S4", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "6. Testes Integrados E2E (CT-01 a CT-12) em HML", "periodos": "S4", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "7. UAT Assistida, Homologação Formal & GO-LIVE (27/11/2026)", "periodos": "S4", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "8. Operação Assistida / Monitoramento (Margem Contratual 4 Meses)", "periodos": "S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16", "cor": "Concluído (Verde)"},
     ],
     "fn027_gantt": [
         {"atividade": "1. Assessment / Criação de PDD (6h concluídas)", "periodos": "27, 28, 29", "cor": "Concluído (Verde)"},
         {"atividade": "Aprovação PDD (Aguardando retorno dos pontos)", "periodos": "30, 2, 3", "cor": "Aguardando / Dependente (Amarelo)"},
-        {"atividade": "2 & 3. Arquitetura inicial (RPA 8h) + Transversais (5h)", "periodos": "30, 2, 3", "cor": "Em Andamento (Azul)"},
-        {"atividade": "4. Geração das NDs - leitura e apuração (10h)", "periodos": "2, 3, 4", "cor": "Em Andamento (Azul)"},
-        {"atividade": "5. Geração das NDs - montagem do Aviso de Débito (10h)", "periodos": "4, 5", "cor": "Em Andamento (Azul)"},
-        {"atividade": "6 & 7. Leitura das NDs aprovadas, DE-PARA e idempotência (10h)", "periodos": "5, 6, 9", "cor": "Em Andamento (Azul)"},
-        {"atividade": "8 & 9. Oracle EBS R12 - Login e AR Contas a Receber (20h)", "periodos": "9, 10, 11", "cor": "Aguardando / Dependente (Amarelo)"},
-        {"atividade": "10. Oracle EBS R12 - AP Contas a Pagar (12h)", "periodos": "11, 12, 13", "cor": "Aguardando / Dependente (Amarelo)"},
-        {"atividade": "11 & 12. Planilha de controle, relatório e pós-processamento (9h)", "periodos": "13, 16", "cor": "Em Andamento (Azul)"},
-        {"atividade": "13 & 14. Exceções, logs e testes integrados (12h)", "periodos": "16, 17", "cor": "UAT & Hypercare (Roxo)"},
-        {"atividade": "15 & 16. Homologação (UAT) e Deploy (6h)", "periodos": "18, 19, 23", "cor": "UAT & Hypercare (Roxo)"},
-        {"atividade": "17. Operação assistida / Hipercare (Aumentado: 12h)", "periodos": "23, 24, 25, 26, 27", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "2 & 3. Arquitetura inicial (RPA 8h) + Transversais (5h)", "periodos": "30, 2, 3, 10, 11", "cor": "Em Andamento (Azul)"},
+        {"atividade": "4. Geração das NDs - leitura e apuração (10h)", "periodos": "11, 12", "cor": "Em Andamento (Azul)"},
+        {"atividade": "5. Geração das NDs - montagem do Aviso de Débito (10h)", "periodos": "12, 13", "cor": "Em Andamento (Azul)"},
+        {"atividade": "6 & 7. Leitura das NDs aprovadas, DE-PARA e idempotência (10h)", "periodos": "13, 16", "cor": "Em Andamento (Azul)"},
+        {"atividade": "8 & 9. Oracle EBS R12 - Login e AR Contas a Receber (20h)", "periodos": "16, 17", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "10. Oracle EBS R12 - AP Contas a Pagar (12h)", "periodos": "18, 19", "cor": "Aguardando / Dependente (Amarelo)"},
+        {"atividade": "11 & 12. Planilha de controle, relatório e pós-processamento (9h)", "periodos": "14, 19", "cor": "Em Andamento (Azul)"},
+        {"atividade": "13 & 14. Exceções, logs e testes integrados (12h)", "periodos": "19, 21", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "15 & 16. Homologação (UAT) e Deploy (6h)", "periodos": "23, 24", "cor": "UAT & Hypercare (Roxo)"},
+        {"atividade": "17. Operação assistida / Hipercare (Aumentado: 12h)", "periodos": "24, 25, 26, 27", "cor": "UAT & Hypercare (Roxo)"},
     ],
     "fn027_tasks": [
         {"id": 1, "etapa": "1. Levantamento Legado & PDD v1.1", "periodo": "Sem 1 (27-30/10)", "orcado_h": 6.0, "atuado_h": 6.0, "status": "Concluído (Aguard. Pontos)", "depende_acesso": False},
-        {"id": 2, "etapa": "2. Arquitetura RPA (REFramework, Config e Filas)", "periodo": "Sem 2 (02-03/11)", "orcado_h": 8.0, "atuado_h": 0.0, "status": "A Iniciar (02/11)", "depende_acesso": False},
-        {"id": 3, "etapa": "3. Componentes Transversais (API, Alertas, Erros)", "periodo": "Sem 2 (02-03/11)", "orcado_h": 5.0, "atuado_h": 0.0, "status": "A Iniciar (02/11)", "depende_acesso": False},
-        {"id": 4, "etapa": "4. Geração NDs - Leitura e Apuração", "periodo": "Sem 2 (03-04/11)", "orcado_h": 10.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
-        {"id": 5, "etapa": "5. Geração NDs - Montagem Aviso Débito", "periodo": "Sem 2 (04-05/11)", "orcado_h": 10.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
-        {"id": 6, "etapa": "6. Leitura NDs Aprovadas e DE-PARA", "periodo": "Sem 2-3 (05-09/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
-        {"id": 7, "etapa": "7. Controle Idempotência e Retry", "periodo": "Sem 2-3 (05-09/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "Planejado Sem. 2", "depende_acesso": False},
-        {"id": 8, "etapa": "8. ERP R12 - Login, Resp. e JNLP", "periodo": "Sem 3 (09-11/11)", "orcado_h": 8.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
-        {"id": 9, "etapa": "9. ERP R12 - Módulo AR (Transações)", "periodo": "Sem 3 (09-11/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
-        {"id": 10, "etapa": "10. ERP R12 - Módulo AP (NFF)", "periodo": "Sem 3 (11-13/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
-        {"id": 11, "etapa": "11. Planilha Controle e Relatório.xlsx", "periodo": "Sem 3-4 (13-16/11)", "orcado_h": 5.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
-        {"id": 12, "etapa": "12. Pós-processamento ND (Mover + PDF)", "periodo": "Sem 3-4 (13-16/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
-        {"id": 13, "etapa": "13. Tratamento de Exceções (BE/SE)", "periodo": "Sem 4 (16-17/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
-        {"id": 14, "etapa": "14. Testes Integrados", "periodo": "Sem 4 (16-17/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": True},
-        {"id": 15, "etapa": "15. Deploy e Agendamentos Orchestrator", "periodo": "Sem 4-5 (18-23/11)", "orcado_h": 2.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": True},
-        {"id": 16, "etapa": "16. Homologação Assistida (UAT)", "periodo": "Sem 4-5 (18-23/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "Marco UAT 24/11", "depende_acesso": True},
-        {"id": 17, "etapa": "17. Hipercare (Produção Assistida - Aumentado)", "periodo": "Sem 5 (23-27/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Planejado Sem. 5", "depende_acesso": True},
+        {"id": 2, "etapa": "2. Arquitetura RPA (REFramework, Config e Filas)", "periodo": "Sem 2 (10/11)", "orcado_h": 8.0, "atuado_h": 0.0, "status": "Prioridade 10/11 Manhã", "depende_acesso": False},
+        {"id": 3, "etapa": "3. Componentes Transversais (API, Alertas, Erros)", "periodo": "Sem 2 (10-11/11)", "orcado_h": 5.0, "atuado_h": 0.0, "status": "A Iniciar (10/11 Noite)", "depende_acesso": False},
+        {"id": 4, "etapa": "4. Geração NDs - Leitura e Apuração", "periodo": "Sem 2 (11-12/11)", "orcado_h": 10.0, "atuado_h": 0.0, "status": "Planejado", "depende_acesso": False},
+        {"id": 5, "etapa": "5. Geração NDs - Montagem Aviso Débito", "periodo": "Sem 2 (12-13/11)", "orcado_h": 10.0, "atuado_h": 0.0, "status": "Planejado", "depende_acesso": False},
+        {"id": 6, "etapa": "6. Leitura NDs Aprovadas e DE-PARA", "periodo": "Sem 2-3 (13/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "Planejado", "depende_acesso": False},
+        {"id": 7, "etapa": "7. Controle Idempotência e Retry", "periodo": "Sem 2-3 (13/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "Planejado", "depende_acesso": False},
+        {"id": 8, "etapa": "8. ERP R12 - Login, Resp. e JNLP", "periodo": "Sem 3 (16/11)", "orcado_h": 8.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
+        {"id": 9, "etapa": "9. ERP R12 - Módulo AR (Transações)", "periodo": "Sem 3 (16-17/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
+        {"id": 10, "etapa": "10. ERP R12 - Módulo AP (NFF)", "periodo": "Sem 3 (18-19/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Bloqueado (Sem Acesso)", "depende_acesso": True},
+        {"id": 11, "etapa": "11. Planilha Controle e Relatório.xlsx", "periodo": "Sem 3 (14-19/11)", "orcado_h": 5.0, "atuado_h": 0.0, "status": "A Iniciar (Fim de Sem.)", "depende_acesso": False},
+        {"id": 12, "etapa": "12. Pós-processamento ND (Mover + PDF)", "periodo": "Sem 3 (14-19/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
+        {"id": 13, "etapa": "13. Tratamento de Exceções (BE/SE)", "periodo": "Sem 3 (19/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": False},
+        {"id": 14, "etapa": "14. Testes Integrados", "periodo": "Sem 3 (21/11)", "orcado_h": 6.0, "atuado_h": 0.0, "status": "A Iniciar (Sábado)", "depende_acesso": True},
+        {"id": 15, "etapa": "15. Deploy e Agendamentos Orchestrator", "periodo": "Sem 4 (23/11)", "orcado_h": 2.0, "atuado_h": 0.0, "status": "A Iniciar", "depende_acesso": True},
+        {"id": 16, "etapa": "16. Homologação Assistida (UAT)", "periodo": "Sem 4 (24/11)", "orcado_h": 4.0, "atuado_h": 0.0, "status": "Marco UAT 24/11", "depende_acesso": True},
+        {"id": 17, "etapa": "17. Hipercare (Produção Assistida - Aumentado)", "periodo": "Sem 4 (24-27/11)", "orcado_h": 12.0, "atuado_h": 0.0, "status": "Planejado Reta Final", "depende_acesso": True},
     ],
     "clt_tasks": [
-        {"id": 1, "etapa": "Fase 1: Discovery, PDD, TDD & Modeler 4 Etapas (BPMN)", "janela_4m": "Mês 1 (Até 02/11)", "meta_fast": "Concluído", "orcado_h": 16.0, "atuado_h": 10.0, "status": "Em Desenvolvimento (Com Acesso)"},
-        {"id": 2, "etapa": "Fase 2: Esboço Etapa 01 (Disp_CFM) + REFramework + Config + Testes", "janela_4m": "Mês 1 (Nov/2026)", "meta_fast": "02/11 a 13/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Em Andamento (Sem Acesso)"},
-        {"id": 3, "etapa": "Fase 3: Esboço Etapas 02, 03 (ERP) e 04 (Portal) + Testes", "janela_4m": "Mês 1 (Nov/2026)", "meta_fast": "16/11 a 27/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Planejado (Sem Acesso)"},
-        {"id": 4, "etapa": "Fase 4: Seletores Reais ERP Desktop (Etapas 02 e 03)", "janela_4m": "Mês 2 (Dez/2026)", "meta_fast": "Dez/2026 (Pós-Acesso)", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Em Desenvolvimento (Com Acesso)"},
-        {"id": 5, "etapa": "Fase 5: Seletores Portal Web (Etapa 04) + Planilha A-K", "janela_4m": "Mês 3 (Jan/2027)", "meta_fast": "Dez/2026 - Jan/2027", "orcado_h": 8.0, "atuado_h": 0.0, "status": "Aguard. Acesso Portal"},
-        {"id": 6, "etapa": "Fase 6: Testes E2E (CT-01 a CT-12), UAT & Go-Live", "janela_4m": "Mês 3-4 (Jan-Fev/2027)", "meta_fast": "Jan/2027", "orcado_h": 10.0, "atuado_h": 0.0, "status": "A Iniciar"},
+        {"id": 1, "etapa": "Fase 1: Discovery, Modeler 4 Etapas (BPMN) & Simulador", "janela_4m": "Sem 1 (02-06/11)", "meta_fast": "Concluído (10h)", "orcado_h": 16.0, "atuado_h": 10.0, "status": "Concluído ✅"},
+        {"id": 2, "etapa": "Fase 2: Etapa 01 (Disp_CFM) + REFramework + Config + Testes CFM", "janela_4m": "Sem 2 (10-12/11)", "meta_fast": "10/11 a 12/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Prioridade Imediata 🔥"},
+        {"id": 3, "etapa": "Fase 3: Etapa 02 (Perf_ERP_Validacoes) - Consulta PJ Desktop", "janela_4m": "Sem 2-3 (13-17/11)", "meta_fast": "13/11 a 17/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Acesso Win32 OK ✅"},
+        {"id": 4, "etapa": "Fase 4: Etapa 03 (Perf_ERP_Cad_Vinculo) - Cadastro PF & Vínculos", "janela_4m": "Sem 3 (18-23/11)", "meta_fast": "18/11 a 23/11", "orcado_h": 14.0, "atuado_h": 0.0, "status": "Planejado"},
+        {"id": 5, "etapa": "Fase 5: Etapa 04 (Perf_Portal SAUDI) + Planilha A-K", "janela_4m": "Sem 4 (24-25/11)", "meta_fast": "24/11 a 25/11", "orcado_h": 8.0, "atuado_h": 0.0, "status": "Planejado"},
+        {"id": 6, "etapa": "Fase 6: Testes Integrados E2E (CT-01 a CT-12), UAT & Go-Live Final", "janela_4m": "Sem 4 (26-27/11)", "meta_fast": "26/11 a 27/11", "orcado_h": 10.0, "atuado_h": 0.0, "status": "🏁 Go-Live 27/11"},
     ],
     "pendencias": [
         {"projeto": "FN027 (Horista)", "item": "Retorno dos pontos levantados no PDD v1.1 junto à área de negócio", "status": "Em Andamento", "Impacto": "Regras finas de exceção"},
-        {"projeto": "FN027 (Horista)", "item": "Liberação de acesso ao ambiente de Homologação e ERP R12 (AR/AP)", "status": "Em Andamento", "Impacto": "Gate 1 em 09/11"},
-        {"projeto": "CLT (Corpo Clínico)", "item": "Liberação de credenciais e acesso ao sistema Desktop (Win32)", "status": "Resolvido ✅", "Impacto": "Seletores Mês 2 (Esboço segue normal)"},
+        {"projeto": "FN027 (Horista)", "item": "Liberação de acesso ao ambiente de Homologação e ERP R12 (AR/AP)", "status": "Em Andamento", "Impacto": "Gate 1 em 16/11"},
+        {"projeto": "CLT (Corpo Clínico)", "item": "Liberação de credenciais e acesso ao sistema Desktop (Win32)", "status": "Resolvido ✅", "Impacto": "Seletores Etapas 02 e 03 Liberados"},
         {"projeto": "CLT (Corpo Clínico)", "item": "Liberação de acesso ao Portal Web de Divulgação (HML)", "status": "Em Andamento", "Impacto": "Seletores Etapa 04"},
     ],
     "diario": [
+        {"data": "09/11/2026 17:20", "projeto": "Ambos", "nota": "🚨 REPLANEJAMENTO URGENTE: CLT readequado para entrega final em 27/11/2026. Rotina blindada: 06h-08h45 FN027, 09h-18h CLT, 19h-21h FN027. Foco total de pai: bebê nasce em 4 meses!"},
         {"data": "03/11/2026 18:04", "projeto": "FN027 (Horista)", "nota": "Revisões em relação ao PDD. Faltando pontos com João Buso e código do Fortra para avançarmos."},
         {"data": "02/11/2026 17:30", "projeto": "Ambos", "nota": "Baseline ajustada: FN027 em 120h totais (Hipercare 12h) com 6h PDD contabilizadas. CLT com esboço de desenvolvimento e testes apartados nas 4 Etapas do Modeler (10h/76h)."}
-    ]
+    ],
+    "rotina_blocos": [
+        {"horario": "06:00 - 06:25", "tipo": "Ativação & Hábitos", "projeto": "Pessoal", "descricao": "Levantar no 1º toque (regra dos 5s), 500ml água gelada, café preto, banho rápido. Zero telas.", "icone": "⏰"},
+        {"horario": "06:30 - 08:45", "tipo": "BLOCO OURO 1 (2h15)", "projeto": "FN027 (Horista PJ)", "descricao": "Código puro no Studio: Arquitetura, Filas Orchestrator, Transversais e Leitura NDs.", "icone": "🟣"},
+        {"horario": "08:45 - 09:00", "tipo": "Transição & Água", "projeto": "Pessoal", "descricao": "Alongamento, mais água, abrir ambiente corporativo e chat da equipe CLT.", "icone": "🔄"},
+        {"horario": "09:00 - 12:30", "tipo": "COMERCIAL 1 (3h30)", "projeto": "CLT (Corpo Clínico)", "descricao": "Desenvolvimento pesado da etapa do dia no Studio (Etapas 01, 02 ou 03). Foco absoluto.", "icone": "🔵"},
+        {"horario": "12:30 - 13:30", "tipo": "Almoço & Reset (1h)", "projeto": "Pessoal", "descricao": "Comida nutritiva, 10 min de caminhada, 20 min sem telas para reset cognitivo.", "icone": "🥗"},
+        {"horario": "13:30 - 18:00", "tipo": "COMERCIAL 2 (4h30)", "projeto": "CLT (Corpo Clínico)", "descricao": "Testes unitários da etapa, refinamento de seletores Win32/Web e commit Git do dia.", "icone": "🔵"},
+        {"horario": "18:00 - 19:00", "tipo": "Família & Jantar (1h)", "projeto": "Pessoal", "descricao": "Estar 100% presente com a esposa, falar sobre o bebê, refeição tranquila.", "icone": "❤️"},
+        {"horario": "19:00 - 21:00", "tipo": "BLOCO OURO 2 (2h00)", "projeto": "FN027 (Horista PJ)", "descricao": "Testes de carga, apuração NDs, módulo EBS Oracle ou relatórios finais.", "icone": "🟣"},
+        {"horario": "21:00 - 22:15", "tipo": "Desaceleração", "projeto": "Pessoal", "descricao": "Banho morno, checar checklist do dia seguinte, relaxamento mental.", "icone": "📖"},
+        {"horario": "22:30", "tipo": "Sono Reparador (7h30)", "projeto": "Pessoal", "descricao": "Dormir impreterivelmente. Recuperação essencial para acordar às 06h.", "icone": "🌙"},
+    ],
+    "steps_diarios": [
+        {"data": "10/11 (Ter)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 2: Fechar Arquitetura REFramework, Config.xlsx e Filas Orchestrator", "status": "Pendente", "horas": "2.25h"},
+        {"data": "10/11 (Ter)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 01 (Disp_CFM): REFramework base + Leitura planilha CFM + CT-03/04", "status": "Pendente", "horas": "7.0h"},
+        {"data": "10/11 (Ter)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 3: Componentes Transversais (Logs estruturados, alertas e regex)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "11/11 (Qua)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 3: Conclusão Transversais + Início Item 4 (Leitura NDs)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "11/11 (Qua)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 01 (Disp_CFM): Validação Web CFM + CT-05 e CT-08 (Etapa 01 Pronta!)", "status": "Pendente", "horas": "7.0h"},
+        {"data": "11/11 (Qua)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 4: Geração NDs (Apuração de valores e filtros de exceção)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "12/11 (Qui)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 5: Geração NDs (Montagem do Aviso de Débito em PDF/Word)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "12/11 (Qui)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 02 (Perf_ERP_Validacoes): Login Desktop Win32 Homepar + Consulta PJ + CT-06", "status": "Pendente", "horas": "7.0h"},
+        {"data": "12/11 (Qui)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 5: Conclusão Aviso de Débito + Verificação de layouts", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "13/11 (Sex)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 6: Leitura NDs Aprovadas e motor DE-PARA", "status": "Pendente", "horas": "2.25h"},
+        {"data": "13/11 (Sex)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 02 (Perf_ERP_Validacoes): Regras fiscais/tributárias + CT-07/09 (Etapa 02 Pronta!)", "status": "Pendente", "horas": "7.0h"},
+        {"data": "13/11 (Sex)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 7: Controle de Idempotência, hash de unicidade e política de retry", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "14/11 (Sáb)", "projeto": "FN027 (Fim de Semana)", "step": "Item 11 & 12: Planilha de Controle e Relatório Excel de Fechamento (07h-12h)", "status": "Pendente", "horas": "5.0h"},
+
+        {"data": "16/11 (Seg)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 8: Oracle EBS R12 (Login, navegação JNLP e módulo AR)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "16/11 (Seg)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 03 (Perf_ERP_Cad_Vinculo): Telas de Cadastro PF no Homepar Win32", "status": "Pendente", "horas": "7.0h"},
+        {"data": "16/11 (Seg)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 8: Oracle EBS R12 AR (Digitação e validação de transações)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "17/11 (Ter)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 9: Oracle EBS R12 AR (Lançamento de Contas a Receber e baixa)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "17/11 (Ter)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 03 (Perf_ERP_Cad_Vinculo): Vínculos de Especialidades e Unidades", "status": "Pendente", "horas": "7.0h"},
+        {"data": "17/11 (Ter)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 9: Oracle EBS R12 AR (Tratamento de popups e confirmação)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "18/11 (Qua)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 10: Oracle EBS R12 AP (Contas a Pagar / NFF)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "18/11 (Qua)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 03 (Perf_ERP_Cad_Vinculo): Modais, validações de erro + CT-01/02 (Etapa 03 Pronta!)", "status": "Pendente", "horas": "7.0h"},
+        {"data": "18/11 (Qua)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 10: Oracle EBS R12 AP (Digitação de faturas e centros de custo)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "19/11 (Qui)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 10: Conclusão Oracle AP + Início Item 13 (Exceções de Sistema/Negócio)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "19/11 (Qui)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 04 (Perf_Portal SAUDI): Automação Web Portal + Layout Planilha A-K", "status": "Pendente", "horas": "7.0h"},
+        {"data": "19/11 (Qui)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 13: Tratamento de Exceções de Sistema e Negócio no REFramework", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "20/11 (Sex)", "projeto": "Ambos (Feriado)", "step": "Feriado Consciência Negra: Folga merecida ou 3h de avanço flexível sem pressão", "status": "Pendente", "horas": "3.0h"},
+        {"data": "21/11 (Sáb)", "projeto": "FN027 (Fim de Semana)", "step": "Item 14: Testes Integrados E2E com massa de homologação (07h-12h)", "status": "Pendente", "horas": "5.0h"},
+
+        {"data": "23/11 (Seg)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 15: Deploy no Orchestrator, assets e agendamentos de disparo", "status": "Pendente", "horas": "2.25h"},
+        {"data": "23/11 (Seg)", "projeto": "CLT (Comercial 09h-18h)", "step": "Etapa 04 (Perf_Portal SAUDI): Validação de carga planilha + CT-10 a 12 (Etapa 04 Pronta!)", "status": "Pendente", "horas": "7.0h"},
+        {"data": "23/11 (Seg)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 16: Preparação de massa para UAT assistida com o negócio", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "24/11 (Ter)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 16: Homologação Assistida (UAT) com time fiscal/financeiro", "status": "Pendente", "horas": "2.25h"},
+        {"data": "24/11 (Ter)", "projeto": "CLT (Comercial 09h-18h)", "step": "Fase 6: Testes Integrados E2E (CT-01 a CT-12) encadeando as 4 Etapas em HML", "status": "Pendente", "horas": "7.0h"},
+        {"data": "24/11 (Ter)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 17: Início Hipercare / Produção Assistida (Acompanhamento 1º ciclo)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "25/11 (Qua)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 17: Hipercare (Monitoramento e validação de relatórios)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "25/11 (Qua)", "projeto": "CLT (Comercial 09h-18h)", "step": "Fase 6: Refinamento de timeouts, tratamento de telas lentas e evidências UAT", "status": "Pendente", "horas": "7.0h"},
+        {"data": "25/11 (Qua)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 17: Hipercare (Auditoria dos lançamentos no Oracle EBS)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "26/11 (Qui)", "projeto": "FN027 (Manhã 06h30)", "step": "Item 17: Hipercare (Ajustes finos e validação final com João Buso)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "26/11 (Qui)", "projeto": "CLT (Comercial 09h-18h)", "step": "Fase 6: UAT Formal com a liderança do CLT + Aprovação e Documentação", "status": "Pendente", "horas": "7.0h"},
+        {"data": "26/11 (Qui)", "projeto": "FN027 (Noite 19h-21h)", "step": "Item 17: Hipercare (Empacotamento final e encerramento)", "status": "Pendente", "horas": "2.0h"},
+
+        {"data": "27/11 (Sex)", "projeto": "FN027 (Manhã 06h30)", "step": "🏁 FN027 FECHADO: Emissão do relatório de 120h (Faturamento R$ 6.000,00!)", "status": "Pendente", "horas": "2.25h"},
+        {"data": "27/11 (Sex)", "projeto": "CLT (Comercial 09h-18h)", "step": "🏁 GO-LIVE CLT CORPO CLÍNICO: Deploy em Produção e Robô Entregue!", "status": "Pendente", "horas": "7.0h"},
+        {"data": "27/11 (Sex)", "projeto": "Família (Noite)", "step": "❤️ COMEMORAÇÃO EM FAMÍLIA: Missão cumprida, bebê protegido e 100% no controle!", "status": "Pendente", "horas": "0.0h"},
+    ],
 }
 
 COLOR_MAP = {
@@ -108,17 +175,32 @@ def load_data():
     if DATA_FILE.exists():
         try:
             saved = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-            if "titulos" not in saved:
+            # Migração automática para a versão 6 (Meta Acelerada 27/11 e Rotina Diária)
+            cur_ver = saved.get("schema_version", 0)
+            if cur_ver < 6:
+                saved["schema_version"] = 6
                 saved["titulos"] = json.loads(json.dumps(DEFAULT_DATA["titulos"]))
-            else:
-                # Remove "(Estilo FN027)" caso estivesse salvo anteriormente
-                saved["titulos"]["clt_gantt_titulo"] = saved["titulos"].get(
-                    "clt_gantt_titulo", DEFAULT_DATA["titulos"]["clt_gantt_titulo"]
-                ).replace(" (Estilo FN027)", "")
-            if "clt_gantt" not in saved:
+                # Preserva horas já atuadas pelo usuário se houver
+                atuado_map = {t["id"]: t.get("atuado_h", 0.0) for t in saved.get("clt_tasks", [])}
+                new_clt_tasks = json.loads(json.dumps(DEFAULT_DATA["clt_tasks"]))
+                for t in new_clt_tasks:
+                    if t["id"] in atuado_map and atuado_map[t["id"]] > 0:
+                        t["atuado_h"] = atuado_map[t["id"]]
+                saved["clt_tasks"] = new_clt_tasks
                 saved["clt_gantt"] = json.loads(json.dumps(DEFAULT_DATA["clt_gantt"]))
-            if "fn027_gantt" not in saved:
-                saved["fn027_gantt"] = json.loads(json.dumps(DEFAULT_DATA["fn027_gantt"]))
+                saved["rotina_blocos"] = json.loads(json.dumps(DEFAULT_DATA["rotina_blocos"]))
+                saved["steps_diarios"] = json.loads(json.dumps(DEFAULT_DATA["steps_diarios"]))
+            else:
+                if "titulos" not in saved:
+                    saved["titulos"] = json.loads(json.dumps(DEFAULT_DATA["titulos"]))
+                if "clt_gantt" not in saved:
+                    saved["clt_gantt"] = json.loads(json.dumps(DEFAULT_DATA["clt_gantt"]))
+                if "fn027_gantt" not in saved:
+                    saved["fn027_gantt"] = json.loads(json.dumps(DEFAULT_DATA["fn027_gantt"]))
+                if "rotina_blocos" not in saved:
+                    saved["rotina_blocos"] = json.loads(json.dumps(DEFAULT_DATA["rotina_blocos"]))
+                if "steps_diarios" not in saved:
+                    saved["steps_diarios"] = json.loads(json.dumps(DEFAULT_DATA["steps_diarios"]))
             return saved
         except Exception:
             return json.loads(json.dumps(DEFAULT_DATA))
@@ -126,7 +208,7 @@ def load_data():
 
 
 def save_data(data):
-    data["schema_version"] = 5
+    data["schema_version"] = 6
     data["last_updated"] = now_br_str()
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -252,15 +334,85 @@ fn_val_total_str = f"R$ {fn_valor_total:,.2f}".replace(",", "X").replace(".", ",
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("🟣 FN027 (Horista)", f"{fn_atuado:g}h / {fn_orcado:g}h", f"Restam {fn_restante:g}h (Hipercare 12h)")
 col2.metric("💰 FN027 Acumulado", fn_val_atuado_str, f"Total: {fn_val_total_str} ({taxa:.0f}/h)")
-col3.metric("🔵 CLT (Corpo Clínico)", f"{clt_atuado:g}h / {clt_orcado:g}h", f"Restam {clt_restante:g}h (Controle Interno)")
-col4.metric("🗓️ Prazo Oficial CLT", "4 Meses (Nov–Fev)", "Meta Fast-Track: Jan/2027")
+col3.metric("🔵 CLT (Corpo Clínico)", f"{clt_atuado:g}h / {clt_orcado:g}h", f"Restam {clt_restante:g}h (Meta 27/11)")
+col4.metric("🚨 Entrega CLT (Acelerada)", "27 de Novembro", "Sprint Final: 10/11 a 27/11")
 
-tab_visao, tab_modeler, tab_horas, tab_pend = st.tabs([
-    "📊 Cronogramas (FN027 120h & CLT 4 Meses)",
+tab_rotina, tab_visao, tab_modeler, tab_horas, tab_pend = st.tabs([
+    "🔥 Rotina Blindada & Steps (27/11)",
+    "📊 Cronogramas (FN027 120h & CLT 27/11)",
     "🧩 Esboço Modeler 4 Etapas & Testes",
     "⏱️ Apontar / Editar / Zerar Horas",
     "🚧 Pendências PDD, Acessos & Diário",
 ])
+
+with tab_rotina:
+    st.error(
+        "### 👶 O Motivo Inegociável: Meu Filho Nasce em 4 Meses (Março/2027)\n"
+        "Esta sprint de **14 dias úteis (10 a 27 de Novembro)** não é sobre trabalhar desesperado. É sobre **método, disciplina e honra**.\n\n"
+        "- **Projeto CLT (Corpo Clínico):** Entrega formal e Go-Live em **27 de Novembro de 2026** (fechando as 66h restantes no comercial).\n"
+        "- **Projeto Horista (FN027):** 114h restantes executadas antes das 09h e após as 18h (+ fins de semana) para colocar **R$ 6.000,00 limpos** no bolso da família.\n"
+        "- **A Regra:** Sem negociação com o despertador às 06h. Celular longe da cama. Um dia de cada vez, fatiado por etapas."
+    )
+
+    st.subheader("⏰ Grade Horária Diária Blindada (Segunda a Sexta)")
+    df_rotina = pd.DataFrame(data.get("rotina_blocos", DEFAULT_DATA["rotina_blocos"]))
+    st.dataframe(
+        df_rotina[["horario", "icone", "tipo", "projeto", "descricao"]],
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "horario": st.column_config.TextColumn("Horário", width="small"),
+            "icone": st.column_config.TextColumn(" ", width="small"),
+            "tipo": st.column_config.TextColumn("Bloco / Tipo", width="medium"),
+            "projeto": st.column_config.TextColumn("Alvo / Projeto", width="small"),
+            "descricao": st.column_config.TextColumn("O que fazer exatamente (Foco Absoluto)", width="large"),
+        },
+    )
+
+    c_m1, c_m2, c_m3 = st.columns(3)
+    c_m1.info("☀️ **Manhã Horista (06h30 - 08h45)**\n\n**2h15 líquidas** no FN027 antes do mundo acordar. Foco em código puro, sem interrupções.")
+    c_m2.success("🏢 **Comercial CLT (09h00 - 18h00)**\n\n**7h30 a 8h** de desenvolvimento e testes no Corpo Clínico. Fatiado em Etapa 01, 02, 03 e 04.")
+    c_m3.info("🌙 **Noite Horista (19h00 - 21h00)**\n\n**2h00 líquidas** no FN027 após a janta com a família. Total de **4h15/dia** no horista!")
+
+    st.divider()
+    st.subheader("🎯 Steps Diários de Batalha (10/11 a 27/11) — Marque o Progresso")
+    st.caption("Acompanhe o que deve ser entregue em cada turno de cada dia. Atualize o status para manter o controle absoluto.")
+
+    df_steps = pd.DataFrame(data.get("steps_diarios", DEFAULT_DATA["steps_diarios"]))
+    ed_steps = st.data_editor(
+        df_steps,
+        num_rows="dynamic",
+        use_container_width=True,
+        hide_index=True,
+        key="editor_steps_diarios",
+        column_config={
+            "data": st.column_config.TextColumn("Dia / Data", width="small"),
+            "projeto": st.column_config.TextColumn("Turno / Projeto", width="medium"),
+            "step": st.column_config.TextColumn("Entrega do Turno (Step)", width="large"),
+            "horas": st.column_config.TextColumn("Horas", width="small"),
+            "status": st.column_config.SelectboxColumn("Status", options=["Pendente", "Em Andamento", "Concluído ✅"], width="small"),
+        },
+    )
+
+    if st.button("💾 Salvar Progresso dos Steps Diários", type="primary", use_container_width=True):
+        data["steps_diarios"] = [r for r in ed_steps.to_dict(orient="records") if str(r.get("step", "")).strip()]
+        save_data(data)
+        st.success("Steps diários atualizados com sucesso!")
+        st.rerun()
+
+    st.divider()
+    st.subheader("🛡️ Checklist de Hábitos Diários do Pai")
+    c_h1, c_h2 = st.columns(2)
+    with c_h1:
+        st.checkbox("⏰ 06:00: Pulei da cama no primeiro toque (sem botão soneca)")
+        st.checkbox("💧 06:05: Tomei 500ml de água gelada e banho para ativar")
+        st.checkbox("🟣 06:30 - 08:45: Cumpri as 2h15 do FN027 antes do comercial")
+        st.checkbox("🔵 09:00 - 18:00: Cumpri o comercial CLT focado na etapa do dia")
+    with c_h2:
+        st.checkbox("🥗 12:30 & 18:00: Almocei e jantei com atenção plena à família")
+        st.checkbox("🟣 19:00 - 21:00: Cumpri as 2h00 da noite no FN027")
+        st.checkbox("📱 22:00: Celular fora de alcance da cama")
+        st.checkbox("🌙 22:30: Luzes apagadas para garantir 7h30 de sono")
 
 with tab_visao:
     with st.expander("✏️ Editar Títulos e Nomes das Linhas dos Cronogramas Visuais"):
@@ -319,9 +471,9 @@ with tab_visao:
 
     st.subheader(titulos.get("clt_secao", DEFAULT_DATA["titulos"]["clt_secao"]))
     st.info(
-        "**Status Atual:** Modeler fechado no UiPath (`BPMN` em 4 Etapas). Acesso ao sistema Desktop (Win32) liberado ✅. "
-        "Iniciando os **esboços de desenvolvimento e testes no Modeler/Studio**. "
-        "Prazo oficial de **4 meses (Nov/2026 a Fev/2027)**, com controle interno em **76h**."
+        "**Status Atual (Meta Acelerada 27/11):** Modeler fechado no UiPath (`BPMN` em 4 Etapas) com 10h concluídas. "
+        "Acesso ao sistema Desktop (Win32) liberado ✅. "
+        "**Meta Final:** Go-Live e entrega de todas as 4 etapas até **27 de Novembro de 2026** (66h restantes em 14 dias úteis de horário comercial)."
     )
     st.dataframe(
         df_clt[["etapa", "janela_4m", "meta_fast", "atuado_h", "orcado_h", "status"]],
