@@ -527,6 +527,60 @@ with tab_visao:
     html_clt += "</tbody></table>"
     st.markdown(html_clt, unsafe_allow_html=True)
 
+    st.markdown("##### 🗓️ Cronograma Visual Dia a Dia de Novembro — CLT Corpo Clínico (Sprint Final: 02/11 a 27/11)")
+    clt_nov_cols = [
+        ("2", 1), ("3", 1), ("4", 1), ("5", 1), ("6", 1),
+        ("9", 2), ("10", 2), ("11", 2), ("12", 2), ("13", 2),
+        ("16", 3), ("17", 3), ("18", 3), ("19", 3), ("20", 3),
+        ("23", 4), ("24", 4), ("25", 4), ("26", 4), ("27", 4),
+    ]
+    clt_nov_weeks_meta = [
+        (1, "Semana 1 (02-06/11 • Concluída)"),
+        (2, "📍 Semana 2 (09-13/11 • Atual)"),
+        (3, "Semana 3 (16-20/11)"),
+        (4, "🏁 Semana 4 (23-27/11 • Go-Live)"),
+    ]
+    curr_nov_week = 2 if hoje_dia <= 15 else (3 if hoje_dia <= 22 else 4)
+
+    html_clt_daily = '<table class="gantt-table"><thead><tr><th rowspan="2">Atividade / Dia (CLT Novembro)</th>'
+    for w_idx, w_label in clt_nov_weeks_meta:
+        style_w = ' style="background:#1e40af;"' if w_idx == curr_nov_week else ""
+        html_clt_daily += f'<th colspan="5"{style_w}>{w_label}</th>'
+    html_clt_daily += "</tr><tr>"
+    for d_str, _ in clt_nov_cols:
+        is_today = (int(d_str) == hoje_dia and hoje_mes == 11)
+        if is_today:
+            style_d = ' style="background:#2563eb; color:#ffffff; font-weight:700;" title="Hoje"'
+        elif d_str in ("2", "20"):
+            style_d = ' style="color:#f87171; font-weight:700;" title="Feriado"'
+        elif d_str == "27":
+            style_d = ' style="color:#10b981; font-weight:700; background:rgba(16,185,129,0.15);" title="Go-Live 27/11"'
+        else:
+            style_d = ""
+        html_clt_daily += f"<th{style_d}>{d_str}</th>"
+    html_clt_daily += "</tr></thead><tbody>"
+
+    clt_daily_plan = [
+        {"atividade": "1. Discovery, Modeler BPMN (4 Etapas) & Testes (10h)", "dias": ["2", "3", "4", "5", "6"], "cls": "bar-done"},
+        {"atividade": "2. Etapa 01 (Disp_CFM): REFramework + Leitura CFM + CT-03/04", "dias": ["9", "10", "11", "12"], "cls": "bar-now"},
+        {"atividade": "3. Etapa 02 (Perf_ERP_Validacoes): Consulta PJ Desktop Win32", "dias": ["12", "13", "16", "17"], "cls": "bar-now"},
+        {"atividade": "4. Etapa 03 (Perf_ERP_Cad_Vinculo): Cadastro PF, Vínculos e Modais", "dias": ["17", "18", "19", "23"], "cls": "bar-now"},
+        {"atividade": "5. Etapa 04 (Perf_Portal SAUDI): Divulgação Web + Planilha A-K", "dias": ["23", "24", "25"], "cls": "bar-wait"},
+        {"atividade": "6. Testes Integrados E2E (CT-01 a CT-12) em HML", "dias": ["25", "26"], "cls": "bar-uat"},
+        {"atividade": "7. UAT Assistida, Homologação Formal & GO-LIVE (27/11/2026)", "dias": ["27"], "cls": "bar-uat"},
+    ]
+    for row in clt_daily_plan:
+        label = row["atividade"]
+        active_days = row["dias"]
+        cls = row["cls"]
+        html_clt_daily += f'<tr><td class="act-name">{label}</td>'
+        for d_str, _ in clt_nov_cols:
+            cell = f'<div class="{cls}"></div>' if d_str in active_days else ""
+            html_clt_daily += f"<td>{cell}</td>"
+        html_clt_daily += "</tr>"
+    html_clt_daily += "</tbody></table>"
+    st.markdown(html_clt_daily, unsafe_allow_html=True)
+
     st.divider()
     st.subheader(titulos.get("fn_secao", DEFAULT_DATA["titulos"]["fn_secao"]))
     st.warning(
